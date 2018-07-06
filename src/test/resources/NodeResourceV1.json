@@ -1,0 +1,21 @@
+{
+    "schema": "org.alfresco.event.model.EventV1",
+    "type": "CONTENT_CREATED",
+    "streamPosition": "1520534888663-k8T3",
+    "principal": "PrincipalTest",
+    "resource": {
+        "id": "d6e573b7-6cbd-4913-a8a7-bb21f4f9201d",
+        "schema": "org.alfresco.event.model.NodeResourceV1",
+        "nodeType": "cm:content",
+        "primaryHierarchy": [
+            {
+                "type": "Node",
+                "id": "c1e352f2-bd5c-490f-ad99-0701203ed1d5"
+            },
+            {
+                "type": "Node",
+                "id": "1b5b2150-2b05-43eb-87f7-c3e5120968e7"
+            }
+         ]
+    }
+}
