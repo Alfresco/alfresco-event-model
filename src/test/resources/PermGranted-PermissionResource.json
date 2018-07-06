@@ -1,0 +1,23 @@
+{
+  "schema": "org.alfresco.event.model.EventV1",
+  "type": "LOCALPERMISSIONGRANTED",
+  "streamPosition": "1520534888663-A4G82B",
+  "principal": "testPrincipal",
+  "resource": {
+    "schema": "org.alfresco.event.model.PermissionResourceV1",
+    "id": "9afb4f9e-82ca-42ea-a68f-158718894f65",
+    "primaryHierarchy": [
+      {
+        "id": "c1e352f2-bd5c-490f-ad99-0701203ed1d5",
+        "type": "Node"
+      },
+      {
+        "id": "1b5b2150-2b05-43eb-87f7-c3e5120968e7",
+        "type": "Node"
+      }
+    ],
+    "nodeType": "cm:folder",
+    "authority": "GROUP_TestGroup",
+    "permission": "SiteContributor"
+  }
+}

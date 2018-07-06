@@ -1,0 +1,20 @@
+{
+    "schema": "org.alfresco.event.model.EventV1",
+    "type": "PROCESS_STARTED",
+    "streamPosition": "1520534888663-k8T3",
+    "principal": "PrincipalTest",
+    "resource": {
+        "id": "d6e573b7-6cbd-4913-a8a7-bb21f4f9201d",
+        "schema": "org.alfresco.event.model.ProcessResourceV1",
+        "primaryHierarchy": [
+            {
+                "type": "Application",
+                "id": "appId1"
+            },
+            {
+                "type": "ProcessDefinition",
+                "id": "processDef1"
+            }
+         ]
+    }
+}
