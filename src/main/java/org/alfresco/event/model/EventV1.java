@@ -41,6 +41,11 @@ public class EventV1<R extends ResourceV1>
         //NOOP
     }
 
+    public EventV1(String type, String principal, R resource)
+    {
+        this(type, EventV1.class, null, principal, resource);
+    }
+
     public EventV1(String type, String streamPosition, String principal, R resource)
     {
         this(type, EventV1.class, streamPosition, principal, resource);
