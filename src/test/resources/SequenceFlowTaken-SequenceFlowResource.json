@@ -1,0 +1,25 @@
+{
+  "schema": "org.alfresco.event.model.EventV1",
+  "type": "SEQUENCE_FLOW_TAKEN",
+  "streamPosition": "1534258238530-uccs3n",
+  "principal": null,
+  "resource": {
+    "schema": "org.alfresco.event.model.activiti.SequenceFlowResourceV1",
+    "id": "513ef0b4-f2aa-483e-bba4-affe562e2292",
+    "appName": "default-app",
+    "serviceFullName": "rb-my-app",
+    "appVersion": "",
+    "serviceName": "rb-my-app",
+    "serviceVersion": "",
+    "serviceType": "runtime-bundle",
+    "entityId": "ec285b4f-9ee4-11e8-9079-0242ac110008",
+    "timestamp": 1534156668661,
+    "processInstanceId": "ec285b4f-9ee4-11e8-9079-0242ac110008",
+    "processDefinitionId": "SimpleProcess:1:49f47a41-9edd-11e8-9079-0242ac110008",
+    "sourceActivityElementId": "startEvent1",
+    "sourceActivityType": "org.activiti.bpmn.model.StartEvent",
+    "targetActivityElementId": "sid-CDFE7219-4627-43E9-8CA8-866CC38EBA94",
+    "targetActivityName": "Perform action",
+    "targetActivityType": "org.activiti.bpmn.model.UserTask"
+  }
+}

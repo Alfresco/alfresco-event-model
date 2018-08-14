@@ -1,0 +1,22 @@
+{
+  "schema": "org.alfresco.event.model.EventV1",
+  "type": "ACTIVITY_COMPLETED",
+  "streamPosition": "1534258238523-7l15ko",
+  "principal": null,
+  "resource": {
+    "schema": "org.alfresco.event.model.activiti.ActivityResourceV1",
+    "id": "8dcd30a9-4abf-4564-a11a-21c36df8cbae",
+    "appName": "default-app",
+    "serviceFullName": "rb-my-app",
+    "appVersion": "",
+    "serviceName": "rb-my-app",
+    "serviceVersion": "",
+    "serviceType": "runtime-bundle",
+    "entityId": "ec285b4f-9ee4-11e8-9079-0242ac110008",
+    "timestamp": 1534156668661,
+    "activityType": "startEvent",
+    "elementId": "startEvent1",
+    "processDefinitionId": "SimpleProcess:1:49f47a41-9edd-11e8-9079-0242ac110008",
+    "processInstanceId": "ec285b4f-9ee4-11e8-9079-0242ac110008"
+  }
+}

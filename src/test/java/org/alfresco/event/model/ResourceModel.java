@@ -18,6 +18,8 @@ package org.alfresco.event.model;
 import java.util.List;
 import java.util.Map;
 
+import org.alfresco.event.model.acs.NodeResourceV1;
+
 /**
  * @author Jamal Kaabi-Mofrad
  */

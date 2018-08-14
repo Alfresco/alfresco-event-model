@@ -5,7 +5,7 @@
     "principal": "PrincipalTest",
     "resource": {
         "id": "d6e573b7-6cbd-4913-a8a7-bb21f4f9201d",
-        "schema": "org.alfresco.event.model.NodeResourceV1",
+        "schema": "org.alfresco.event.model.acs.NodeResourceV1",
         "nodeType": "cm:content",
         "primaryHierarchy": [
             {

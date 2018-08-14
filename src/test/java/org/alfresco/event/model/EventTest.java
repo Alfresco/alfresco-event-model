@@ -30,6 +30,16 @@ import java.util.UUID;
 import org.alfresco.event.TestUtil;
 import org.alfresco.event.databind.EventObjectMapperFactory;
 import org.alfresco.event.model.ResourceModel.NodeResourceExtended;
+import org.alfresco.event.model.acs.AuthorityResourceV1;
+import org.alfresco.event.model.acs.NodeResourceV1;
+import org.alfresco.event.model.acs.PermissionResourceV1;
+import org.alfresco.event.model.activiti.ActivitiCloudRuntimeResourceV1;
+import org.alfresco.event.model.activiti.ActivityResourceV1;
+import org.alfresco.event.model.activiti.ProcessResourceV1;
+import org.alfresco.event.model.activiti.SequenceFlowResourceV1;
+import org.alfresco.event.model.activiti.TaskCandidateResourceV1;
+import org.alfresco.event.model.activiti.TaskResourceV1;
+import org.alfresco.event.model.activiti.VariableResourceV1;
 import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 
@@ -183,13 +193,19 @@ public class EventTest
     @Test
     public void testProcessStartedEventMarshalling() throws Exception
     {
-        ProcessResourceV1 resource = new ProcessResourceV1("d6e573b7-6cbd-4913-a8a7-bb21f4f9201d",
-                    TestUtil.getTestProcessHierarchy());
-        EventV1<ProcessResourceV1> processStartedEvent = new EventV1<>("PROCESS_STARTED",
-                    "1520534888663-k8T3", "PrincipalTest", resource);
+        ProcessResourceV1 resource = new ProcessResourceV1("40ea9d40-f9e3-4c0f-ad81-7b6b6bfeed9f",
+                    null);
+        setCommonActivitiResourceValues(resource);
+        resource.setTimestamp(1534156668660L);
+        resource.setEntityId("ec285b4f-9ee4-11e8-9079-0242ac110008");
+        resource.setProcessDefinitionId("SimpleProcess:1:49f47a41-9edd-11e8-9079-0242ac110008");
+        resource.setProcessDefinitionKey("SimpleProcess");
+        resource.setStatus("RUNNING");
+        EventV1<ProcessResourceV1> processStartedEvent = new EventV1<>("PROCESS_CREATED",
+                    "1534258238351-nsexzn", "PrincipalTest", resource);
 
         String result = OBJECT_MAPPER.writeValueAsString(processStartedEvent);
-        String processStartedEventJson = TestUtil.getFile("ProcessResourceV1.json");
+        String processStartedEventJson = TestUtil.getFile("ProcessCreated-ProcessResource.json");
 
         JSONAssert.assertEquals(processStartedEventJson, result, false);
     }
@@ -197,20 +213,25 @@ public class EventTest
     @Test
     public void testProcessStartedEventUnmarshalling() throws Exception
     {
-        String processStartedEventJson = TestUtil.getFile("ProcessResourceV1.json");
+        String processStartedEventJson = TestUtil.getFile("ProcessCreated-ProcessResource.json");
         EventV1<?> result = OBJECT_MAPPER.readValue(processStartedEventJson, EventV1.class);
 
-        ProcessResourceV1 resource = new ProcessResourceV1("d6e573b7-6cbd-4913-a8a7-bb21f4f9201d",
-                    TestUtil.getTestProcessHierarchy());
-        EventV1<ProcessResourceV1> processStartedEvent = new EventV1<>("PROCESS_STARTED",
-                    "1520534888663-k8T3", "PrincipalTest", resource);
+        ProcessResourceV1 resource = new ProcessResourceV1("40ea9d40-f9e3-4c0f-ad81-7b6b6bfeed9f",
+                    null);
+        setCommonActivitiResourceValues(resource);
+        resource.setTimestamp(1534156668660L);
+        resource.setEntityId("ec285b4f-9ee4-11e8-9079-0242ac110008");
+        resource.setProcessDefinitionId("SimpleProcess:1:49f47a41-9edd-11e8-9079-0242ac110008");
+        resource.setProcessDefinitionKey("SimpleProcess");
+        resource.setStatus("RUNNING");
+        EventV1<ProcessResourceV1> processStartedEvent = new EventV1<>("PROCESS_CREATED",
+                    "1534258238351-nsexzn", "PrincipalTest", resource);
 
-        assertEquals("PROCESS_STARTED", result.getType());
+        assertEquals("PROCESS_CREATED", result.getType());
         assertEquals(EventV1.class.getName(), result.getSchema());
         assertEquals(processStartedEvent.getStreamPosition(), result.getStreamPosition());
         assertEquals(processStartedEvent.getPrincipal(), result.getPrincipal());
         assertEquals(processStartedEvent.getResource(), result.getResource());
-
     }
 
     @SuppressWarnings("unchecked")
@@ -322,5 +343,258 @@ public class EventTest
         EventV1<?> unmarshallingResult = OBJECT_MAPPER.readValue(permissionEventJson, EventV1.class);
         // Relies on the object equals method
         assertEquals(permissionEvent, unmarshallingResult);
+    }
+
+    @Test
+    public void testTaskAssignedEventMarshalling() throws Exception
+    {
+        TaskResourceV1 resource = new TaskResourceV1( "ed88df66-b0b2-4685-aca6-b7c4cad27752",
+                    null);
+        setCommonActivitiResourceValues(resource);
+        resource.setTimestamp(1534156841285L);
+        resource.setEntityId("3688b0ad-9ee4-11e8-9079-0242ac110008");
+        resource.setProcessDefinitionId("SimpleProcess:1:49f47a41-9edd-11e8-9079-0242ac110008");
+        resource.setProcessInstanceId("3680c167-9ee4-11e8-9079-0242ac110008");
+        resource.setName("Perform action");
+        resource.setStatus("ASSIGNED");
+        resource.setPriority(50);
+        resource.setAssignee("PrincipalTest");
+        resource.setCreatedDate(new Date(1534156363940L));
+        resource.setClaimedDate(new Date(1534156841281L));
+        EventV1<TaskResourceV1> processStartedEvent = new EventV1<>("TASK_ASSIGNED",
+                    "1534258408610-zimakg", null, resource);
+
+        String result = OBJECT_MAPPER.writeValueAsString(processStartedEvent);
+        String processStartedEventJson = TestUtil.getFile("TaskAssigned-TaskCandidateResource.json");
+
+        JSONAssert.assertEquals(processStartedEventJson, result, false);
+    }
+
+    @Test
+    public void testTaskAssignedEventUnmarshalling() throws Exception
+    {
+        String processStartedEventJson = TestUtil.getFile("TaskAssigned-TaskCandidateResource.json");
+        EventV1<?> result = OBJECT_MAPPER.readValue(processStartedEventJson, EventV1.class);
+
+        TaskResourceV1 resource = new TaskResourceV1( "ed88df66-b0b2-4685-aca6-b7c4cad27752",
+                    null);
+        setCommonActivitiResourceValues(resource);
+        resource.setTimestamp(1534156841285L);
+        resource.setEntityId("3688b0ad-9ee4-11e8-9079-0242ac110008");
+        resource.setProcessDefinitionId("SimpleProcess:1:49f47a41-9edd-11e8-9079-0242ac110008");
+        resource.setProcessInstanceId("3680c167-9ee4-11e8-9079-0242ac110008");
+        resource.setName("Perform action");
+        resource.setStatus("ASSIGNED");
+        resource.setPriority(50);
+        resource.setAssignee("PrincipalTest");
+        resource.setCreatedDate(new Date(1534156363940L));
+        resource.setClaimedDate(new Date(1534156841281L));
+        EventV1<TaskResourceV1> processStartedEvent = new EventV1<>("TASK_ASSIGNED",
+                    "1534258408610-zimakg", null, resource);
+
+        assertEquals("TASK_ASSIGNED", result.getType());
+        assertEquals(EventV1.class.getName(), result.getSchema());
+        assertEquals(processStartedEvent.getStreamPosition(), result.getStreamPosition());
+        assertEquals(processStartedEvent.getPrincipal(), result.getPrincipal());
+        assertEquals(processStartedEvent.getResource(), result.getResource());
+    }
+
+    @Test
+    public void testVariableCreatedEventMarshalling() throws Exception
+    {
+        VariableResourceV1<String> resource = new VariableResourceV1<>("64744214-37cc-4a8a-a9e7-45663f16ea26", null);
+        setCommonActivitiResourceValues(resource);
+        resource.setTimestamp(1534156668660L);
+        resource.setEntityId("firstName");
+        resource.setProcessInstanceId("ec285b4f-9ee4-11e8-9079-0242ac110008");
+        resource.setName("firstName");
+        resource.setType("string");
+        resource.setTaskVariable(false);
+        resource.setValue("Principal");
+        EventV1<VariableResourceV1> processStartedEvent = new EventV1<>("VARIABLE_CREATED", "1534258238464-rborhs", null, resource);
+
+        String result = OBJECT_MAPPER.writeValueAsString(processStartedEvent);
+        String processStartedEventJson = TestUtil.getFile("VariableCreated-VariableResource.json");
+
+        JSONAssert.assertEquals(processStartedEventJson, result, false);
+    }
+
+    @Test
+    public void testVariableCreatedEventUnmarshalling() throws Exception
+    {
+        String processStartedEventJson = TestUtil.getFile("VariableCreated-VariableResource.json");
+        EventV1<?> result = OBJECT_MAPPER.readValue(processStartedEventJson, EventV1.class);
+
+        VariableResourceV1<String> resource = new VariableResourceV1<>("64744214-37cc-4a8a-a9e7-45663f16ea26", null);
+        setCommonActivitiResourceValues(resource);
+        resource.setTimestamp(1534156668660L);
+        resource.setEntityId("firstName");
+        resource.setProcessInstanceId("ec285b4f-9ee4-11e8-9079-0242ac110008");
+        resource.setName("firstName");
+        resource.setType("string");
+        resource.setTaskVariable(false);
+        resource.setValue("Principal");
+        EventV1<VariableResourceV1> processStartedEvent = new EventV1<>("VARIABLE_CREATED", "1534258238464-rborhs", null, resource);
+
+        assertEquals("VARIABLE_CREATED", result.getType());
+        assertEquals(EventV1.class.getName(), result.getSchema());
+        assertEquals(processStartedEvent.getStreamPosition(), result.getStreamPosition());
+        assertEquals(processStartedEvent.getPrincipal(), result.getPrincipal());
+        assertEquals(processStartedEvent.getResource(), result.getResource());
+    }
+
+    @Test
+    public void testActivityCompletedEventMarshalling() throws Exception
+    {
+        ActivityResourceV1 resource = new ActivityResourceV1( "8dcd30a9-4abf-4564-a11a-21c36df8cbae",
+                    null);
+        setCommonActivitiResourceValues(resource);
+        resource.setTimestamp(1534156668661L);
+        resource.setEntityId("ec285b4f-9ee4-11e8-9079-0242ac110008");
+        resource.setProcessDefinitionId("SimpleProcess:1:49f47a41-9edd-11e8-9079-0242ac110008");
+        resource.setProcessInstanceId("ec285b4f-9ee4-11e8-9079-0242ac110008");
+        resource.setActivityType("startEvent");
+        resource.setElementId("startEvent1");
+        EventV1<ActivityResourceV1> processStartedEvent = new EventV1<>("ACTIVITY_COMPLETED",
+                    "1534258238523-7l15ko", null, resource);
+
+        String result = OBJECT_MAPPER.writeValueAsString(processStartedEvent);
+        String processStartedEventJson = TestUtil.getFile("ActivityCompleted-ActivityResource.json");
+
+        JSONAssert.assertEquals(processStartedEventJson, result, false);
+    }
+
+    @Test
+    public void testActivityCompletedEventUnmarshalling() throws Exception
+    {
+        String processStartedEventJson = TestUtil.getFile("ActivityCompleted-ActivityResource.json");
+        EventV1<?> result = OBJECT_MAPPER.readValue(processStartedEventJson, EventV1.class);
+
+        ActivityResourceV1 resource = new ActivityResourceV1( "8dcd30a9-4abf-4564-a11a-21c36df8cbae",
+                    null);
+        setCommonActivitiResourceValues(resource);
+        resource.setTimestamp(1534156668661L);
+        resource.setEntityId("ec285b4f-9ee4-11e8-9079-0242ac110008");
+        resource.setProcessDefinitionId("SimpleProcess:1:49f47a41-9edd-11e8-9079-0242ac110008");
+        resource.setProcessInstanceId("ec285b4f-9ee4-11e8-9079-0242ac110008");
+        resource.setActivityType("startEvent");
+        resource.setElementId("startEvent1");
+        EventV1<ActivityResourceV1> processStartedEvent = new EventV1<>("ACTIVITY_COMPLETED",
+                    "1534258238523-7l15ko", null, resource);
+
+        assertEquals("ACTIVITY_COMPLETED", result.getType());
+        assertEquals(EventV1.class.getName(), result.getSchema());
+        assertEquals(processStartedEvent.getStreamPosition(), result.getStreamPosition());
+        assertEquals(processStartedEvent.getPrincipal(), result.getPrincipal());
+        assertEquals(processStartedEvent.getResource(), result.getResource());
+    }
+
+    @Test
+    public void testSequenceFlowTakenEventMarshalling() throws Exception
+    {
+        SequenceFlowResourceV1 resource = new SequenceFlowResourceV1("513ef0b4-f2aa-483e-bba4-affe562e2292",
+                    null);
+        setCommonActivitiResourceValues(resource);
+        resource.setTimestamp(1534156668661L);
+        resource.setEntityId("ec285b4f-9ee4-11e8-9079-0242ac110008");
+        resource.setProcessDefinitionId("SimpleProcess:1:49f47a41-9edd-11e8-9079-0242ac110008");
+        resource.setProcessInstanceId("ec285b4f-9ee4-11e8-9079-0242ac110008");
+        resource.setSourceActivityElementId("startEvent1");
+        resource.setSourceActivityType("org.activiti.bpmn.model.StartEvent");
+        resource.setTargetActivityName("Perform action");
+        resource.setTargetActivityElementId("sid-CDFE7219-4627-43E9-8CA8-866CC38EBA94");
+        resource.setTargetActivityType("org.activiti.bpmn.model.UserTask");
+
+        EventV1<SequenceFlowResourceV1> processStartedEvent = new EventV1<>("SEQUENCE_FLOW_TAKEN",
+                    "1534258238530-uccs3n", null, resource);
+
+        String result = OBJECT_MAPPER.writeValueAsString(processStartedEvent);
+        String processStartedEventJson = TestUtil.getFile("SequenceFlowTaken-SequenceFlowResource.json");
+
+        JSONAssert.assertEquals(processStartedEventJson, result, false);
+    }
+
+    @Test
+    public void testSequenceFlowTakenEventUnmarshalling() throws Exception
+    {
+        String processStartedEventJson = TestUtil.getFile("SequenceFlowTaken-SequenceFlowResource.json");
+        EventV1<?> result = OBJECT_MAPPER.readValue(processStartedEventJson, EventV1.class);
+
+        SequenceFlowResourceV1 resource = new SequenceFlowResourceV1("513ef0b4-f2aa-483e-bba4-affe562e2292",
+                    null);
+        setCommonActivitiResourceValues(resource);
+        resource.setTimestamp(1534156668661L);
+        resource.setEntityId("ec285b4f-9ee4-11e8-9079-0242ac110008");
+        resource.setProcessDefinitionId("SimpleProcess:1:49f47a41-9edd-11e8-9079-0242ac110008");
+        resource.setProcessInstanceId("ec285b4f-9ee4-11e8-9079-0242ac110008");
+        resource.setSourceActivityElementId("startEvent1");
+        resource.setSourceActivityType("org.activiti.bpmn.model.StartEvent");
+        resource.setTargetActivityName("Perform action");
+        resource.setTargetActivityElementId("sid-CDFE7219-4627-43E9-8CA8-866CC38EBA94");
+        resource.setTargetActivityType("org.activiti.bpmn.model.UserTask");
+
+        EventV1<SequenceFlowResourceV1> processStartedEvent = new EventV1<>("SEQUENCE_FLOW_TAKEN",
+                    "1534258238530-uccs3n", null, resource);
+
+        assertEquals("SEQUENCE_FLOW_TAKEN", result.getType());
+        assertEquals(EventV1.class.getName(), result.getSchema());
+        assertEquals(processStartedEvent.getStreamPosition(), result.getStreamPosition());
+        assertEquals(processStartedEvent.getPrincipal(), result.getPrincipal());
+        assertEquals(processStartedEvent.getResource(), result.getResource());
+    }
+
+    @Test
+    public void testGroupTaskCandidateEventMarshalling() throws Exception
+    {
+        TaskCandidateResourceV1 resource = new TaskCandidateResourceV1( "76f5ef22-71c3-4886-a26a-f2004ceb2f5d",
+                    null);
+        setCommonActivitiResourceValues(resource);
+        resource.setTimestamp(1534156668661L);
+        resource.setEntityId("hr");
+        resource.setTaskId("ec288265-9ee4-11e8-9079-0242ac110008");
+        resource.setGroupId("hr");
+
+        EventV1<TaskCandidateResourceV1> processStartedEvent = new EventV1<>("TASK_CANDIDATE_GROUP_ADDED",
+                    "1534258238552-twdsoh", null, resource);
+
+        String result = OBJECT_MAPPER.writeValueAsString(processStartedEvent);
+        String processStartedEventJson = TestUtil.getFile("GroupAdded-TaskCandidateResource.json");
+
+        JSONAssert.assertEquals(processStartedEventJson, result, false);
+    }
+
+    @Test
+    public void testGroupTaskCandidateEventUnmarshalling() throws Exception
+    {
+        String processStartedEventJson = TestUtil.getFile("GroupAdded-TaskCandidateResource.json");
+        EventV1<?> result = OBJECT_MAPPER.readValue(processStartedEventJson, EventV1.class);
+
+        TaskCandidateResourceV1 resource = new TaskCandidateResourceV1( "76f5ef22-71c3-4886-a26a-f2004ceb2f5d",
+                    null);
+        setCommonActivitiResourceValues(resource);
+        resource.setTimestamp(1534156668661L);
+        resource.setEntityId("hr");
+        resource.setTaskId("ec288265-9ee4-11e8-9079-0242ac110008");
+        resource.setGroupId("hr");
+
+        EventV1<TaskCandidateResourceV1> processStartedEvent = new EventV1<>("TASK_CANDIDATE_GROUP_ADDED",
+                    "1534258238552-twdsoh", null, resource);
+
+        assertEquals("TASK_CANDIDATE_GROUP_ADDED", result.getType());
+        assertEquals(EventV1.class.getName(), result.getSchema());
+        assertEquals(processStartedEvent.getStreamPosition(), result.getStreamPosition());
+        assertEquals(processStartedEvent.getPrincipal(), result.getPrincipal());
+        assertEquals(processStartedEvent.getResource(), result.getResource());
+    }
+
+
+    private void setCommonActivitiResourceValues(ActivitiCloudRuntimeResourceV1 resource)
+    {
+        resource.setAppName("default-app");
+        resource.setAppVersion("");
+        resource.setServiceFullName("rb-my-app");
+        resource.setServiceVersion("");
+        resource.setServiceName("rb-my-app");
+        resource.setServiceType("runtime-bundle");
     }
 }

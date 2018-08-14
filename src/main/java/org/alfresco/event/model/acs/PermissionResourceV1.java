@@ -13,10 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.alfresco.event.model;
+package org.alfresco.event.model.acs;
 
 import java.util.List;
 import java.util.Objects;
+
+import org.alfresco.event.model.HierarchyEntry;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -110,7 +112,7 @@ public class PermissionResourceV1 extends NodeResourceV1
                     .append(", \"nodeType\": ").append("\"" + this.nodeType + "\"")
                     .append(", \"authority\": ").append("\"" + this.authority + "\"")
                     .append(", \"permission\": ").append("\"" + this.permission + "\"")
-                    .append(", \"async\": ").append("\"" + this.async + "\"")
+                    .append(", \"async\": ").append(this.async)
                     .append("}}");
         return sb.toString();
     }

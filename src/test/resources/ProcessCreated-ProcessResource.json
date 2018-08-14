@@ -1,0 +1,21 @@
+{
+  "schema": "org.alfresco.event.model.EventV1",
+  "type": "PROCESS_CREATED",
+  "streamPosition": "1534258238351-nsexzn",
+  "principal": "PrincipalTest",
+  "resource": {
+    "schema": "org.alfresco.event.model.activiti.ProcessResourceV1",
+    "id": "40ea9d40-f9e3-4c0f-ad81-7b6b6bfeed9f",
+    "appName": "default-app",
+    "serviceFullName": "rb-my-app",
+    "appVersion": "",
+    "serviceName": "rb-my-app",
+    "serviceVersion": "",
+    "serviceType": "runtime-bundle",
+    "entityId": "ec285b4f-9ee4-11e8-9079-0242ac110008",
+    "timestamp": 1534156668660,
+    "processDefinitionId": "SimpleProcess:1:49f47a41-9edd-11e8-9079-0242ac110008",
+    "processDefinitionKey": "SimpleProcess",
+    "status": "RUNNING"
+  }
+}

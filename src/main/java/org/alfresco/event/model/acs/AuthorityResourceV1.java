@@ -13,10 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.alfresco.event.model;
+package org.alfresco.event.model.acs;
 
 import java.util.List;
 import java.util.Objects;
+
+import org.alfresco.event.model.HierarchyEntry;
+import org.alfresco.event.model.ResourceV1;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -114,7 +117,7 @@ public class AuthorityResourceV1 extends ResourceV1
                     .append(", \"primaryHierarchy\": ").append((this.primaryHierarchy == null ? "null" : "\"" + this.primaryHierarchy.toString() + "\""))
                     .append(", \"authorityName\": ").append("\"" + this.authorityName + "\"")
                     .append(", \"parentGroup\": ").append("\"" + this.parentGroup + "\"")
-                    .append(", \"cascade\": ").append("\"" + this.cascade + "\"")
+                    .append(", \"cascade\": ").append(this.cascade)
                     .append("}}");
         return sb.toString();
     }
