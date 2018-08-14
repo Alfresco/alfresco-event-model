@@ -4,7 +4,7 @@
   "streamPosition": "1534258238464-rborhs",
   "principal": null,
   "resource": {
-    "schema": "org.alfresco.event.model.VariableResourceV1",
+    "schema": "org.alfresco.event.model.activiti.VariableResourceV1",
     "id": "64744214-37cc-4a8a-a9e7-45663f16ea26",
     "primaryHierarchy": null,
     "appName": "default-app",

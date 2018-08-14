@@ -30,6 +30,16 @@ import java.util.UUID;
 import org.alfresco.event.TestUtil;
 import org.alfresco.event.databind.EventObjectMapperFactory;
 import org.alfresco.event.model.ResourceModel.NodeResourceExtended;
+import org.alfresco.event.model.acs.AuthorityResourceV1;
+import org.alfresco.event.model.acs.NodeResourceV1;
+import org.alfresco.event.model.acs.PermissionResourceV1;
+import org.alfresco.event.model.activiti.ActivitiCloudRuntimeResourceV1;
+import org.alfresco.event.model.activiti.ActivityResourceV1;
+import org.alfresco.event.model.activiti.ProcessResourceV1;
+import org.alfresco.event.model.activiti.SequenceFlowResourceV1;
+import org.alfresco.event.model.activiti.TaskCandidateResourceV1;
+import org.alfresco.event.model.activiti.TaskResourceV1;
+import org.alfresco.event.model.activiti.VariableResourceV1;
 import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 

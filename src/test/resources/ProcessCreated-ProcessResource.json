@@ -4,7 +4,7 @@
   "streamPosition": "1534258238351-nsexzn",
   "principal": "PrincipalTest",
   "resource": {
-    "schema": "org.alfresco.event.model.ProcessResourceV1",
+    "schema": "org.alfresco.event.model.activiti.ProcessResourceV1",
     "id": "40ea9d40-f9e3-4c0f-ad81-7b6b6bfeed9f",
     "appName": "default-app",
     "serviceFullName": "rb-my-app",

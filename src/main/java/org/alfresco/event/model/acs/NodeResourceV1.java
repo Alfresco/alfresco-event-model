@@ -13,10 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.alfresco.event.model;
+package org.alfresco.event.model.acs;
 
 import java.util.List;
 import java.util.Objects;
+
+import org.alfresco.event.model.HierarchyEntry;
+import org.alfresco.event.model.ResourceV1;
 
 /**
  * Node resource object implementation

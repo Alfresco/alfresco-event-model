@@ -4,7 +4,7 @@
   "streamPosition": "1534258238552-twdsoh",
   "principal": null,
   "resource": {
-    "schema": "org.alfresco.event.model.TaskCandidateResourceV1",
+    "schema": "org.alfresco.event.model.activiti.TaskCandidateResourceV1",
     "id": "76f5ef22-71c3-4886-a26a-f2004ceb2f5d",
     "appName": "default-app",
     "serviceFullName": "rb-my-app",

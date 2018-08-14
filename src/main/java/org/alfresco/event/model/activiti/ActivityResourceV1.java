@@ -13,11 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.alfresco.event.model;
+package org.alfresco.event.model.activiti;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+
+import org.alfresco.event.model.HierarchyEntry;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -26,36 +27,55 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  * @author Jamal Kaabi-Mofrad
  */
 @JsonInclude(Include.NON_NULL)
-public class TaskResourceV1 extends ActivitiCloudRuntimeResourceV1
+public class ActivityResourceV1 extends ActivitiCloudRuntimeResourceV1
 {
-    private String name;
+    // Only relevant for certain events e.g. the filed won't be
+    // included in the Activity Completed event.
+    private String activityName;
+    private String activityType;
+    private String elementId;
     private String processDefinitionId;
     private String processInstanceId;
-    private Integer priority;
-    private String status;
-    private String assignee;
-    private Date createdDate;
-    private Date claimedDate;
-    // Only relevant for Task Cancelled event.
+    // Only relevant for Activity Cancelled event.
     private String cause;
 
-    public TaskResourceV1()
+    public ActivityResourceV1()
     {
     }
 
-    public TaskResourceV1(String id, List<HierarchyEntry> primaryHierarchy)
+    public ActivityResourceV1(String id, List<HierarchyEntry> primaryHierarchy)
     {
-        super(id, TaskResourceV1.class, primaryHierarchy);
+        super(id, ActivityResourceV1.class, primaryHierarchy);
     }
 
-    public String getName()
+    public String getActivityName()
     {
-        return name;
+        return activityName;
     }
 
-    public void setName(String name)
+    public void setActivityName(String activityName)
     {
-        this.name = name;
+        this.activityName = activityName;
+    }
+
+    public String getActivityType()
+    {
+        return activityType;
+    }
+
+    public void setActivityType(String activityType)
+    {
+        this.activityType = activityType;
+    }
+
+    public String getElementId()
+    {
+        return elementId;
+    }
+
+    public void setElementId(String elementId)
+    {
+        this.elementId = elementId;
     }
 
     public String getProcessDefinitionId()
@@ -78,56 +98,6 @@ public class TaskResourceV1 extends ActivitiCloudRuntimeResourceV1
         this.processInstanceId = processInstanceId;
     }
 
-    public Integer getPriority()
-    {
-        return priority;
-    }
-
-    public void setPriority(Integer priority)
-    {
-        this.priority = priority;
-    }
-
-    public String getStatus()
-    {
-        return status;
-    }
-
-    public void setStatus(String status)
-    {
-        this.status = status;
-    }
-
-    public String getAssignee()
-    {
-        return assignee;
-    }
-
-    public void setAssignee(String assignee)
-    {
-        this.assignee = assignee;
-    }
-
-    public Date getCreatedDate()
-    {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate)
-    {
-        this.createdDate = createdDate;
-    }
-
-    public Date getClaimedDate()
-    {
-        return claimedDate;
-    }
-
-    public void setClaimedDate(Date claimedDate)
-    {
-        this.claimedDate = claimedDate;
-    }
-
     public String getCause()
     {
         return cause;
@@ -141,8 +111,8 @@ public class TaskResourceV1 extends ActivitiCloudRuntimeResourceV1
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), name, processDefinitionId, processInstanceId,
-                    priority, status, assignee, createdDate, claimedDate, cause);
+        return Objects.hash(super.hashCode(), activityName, activityType, elementId,
+                    processDefinitionId, processInstanceId, cause);
     }
 
     @Override
@@ -152,7 +122,7 @@ public class TaskResourceV1 extends ActivitiCloudRuntimeResourceV1
         {
             return true;
         }
-        if (!(obj instanceof TaskResourceV1))
+        if (!(obj instanceof ActivityResourceV1))
         {
             return false;
         }
@@ -160,15 +130,12 @@ public class TaskResourceV1 extends ActivitiCloudRuntimeResourceV1
         {
             return false;
         }
-        TaskResourceV1 that = (TaskResourceV1) obj;
-        return Objects.equals(name, that.name)
+        ActivityResourceV1 that = (ActivityResourceV1) obj;
+        return Objects.equals(activityName, that.activityName)
+                    && Objects.equals(activityType, that.activityType)
+                    && Objects.equals(elementId, that.elementId)
                     && Objects.equals(processDefinitionId, that.processDefinitionId)
                     && Objects.equals(processInstanceId, that.processInstanceId)
-                    && Objects.equals(priority, that.priority)
-                    && Objects.equals(status, that.status)
-                    && Objects.equals(assignee, that.assignee)
-                    && Objects.equals(createdDate, that.createdDate)
-                    && Objects.equals(claimedDate, that.claimedDate)
                     && Objects.equals(cause, that.cause);
     }
 
@@ -188,14 +155,11 @@ public class TaskResourceV1 extends ActivitiCloudRuntimeResourceV1
                     .append(", \"serviceType\": ").append("\"" + this.serviceType + "\"")
                     .append(", \"entityId\": ").append("\"" + this.entityId + "\"")
                     .append(", \"timestamp\": ").append("\"" + this.timestamp + "\"")
-                    .append(", \"name\": ").append("\"" + this.name + "\"")
                     .append(", \"processDefinitionId\": ").append("\"" + this.processDefinitionId + "\"")
                     .append(", \"processInstanceId\": ").append("\"" + this.processInstanceId + "\"")
-                    .append(", \"priority\": ").append(this.priority)
-                    .append(", \"status\": ").append("\"" + this.status + "\"")
-                    .append(", \"assignee\": ").append("\"" + this.assignee + "\"")
-                    .append(", \"createdDate\": ").append("\"" + this.createdDate + "\"")
-                    .append(", \"claimedDate\": ").append("\"" + this.claimedDate + "\"")
+                    .append(", \"activityName\": ").append("\"" + this.activityName + "\"")
+                    .append(", \"activityType\": ").append("\"" + this.activityType + "\"")
+                    .append(", \"elementId\": ").append("\"" + this.elementId + "\"")
                     .append(", \"cause\": ").append("\"" + this.cause + "\"")
                     .append("}}");
         return builder.toString();
