@@ -110,7 +110,7 @@ public class PermissionResourceV1 extends NodeResourceV1
                     .append(", \"nodeType\": ").append("\"" + this.nodeType + "\"")
                     .append(", \"authority\": ").append("\"" + this.authority + "\"")
                     .append(", \"permission\": ").append("\"" + this.permission + "\"")
-                    .append(", \"async\": ").append("\"" + this.async + "\"")
+                    .append(", \"async\": ").append(this.async)
                     .append("}}");
         return sb.toString();
     }

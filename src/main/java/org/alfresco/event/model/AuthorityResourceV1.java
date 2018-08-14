@@ -114,7 +114,7 @@ public class AuthorityResourceV1 extends ResourceV1
                     .append(", \"primaryHierarchy\": ").append((this.primaryHierarchy == null ? "null" : "\"" + this.primaryHierarchy.toString() + "\""))
                     .append(", \"authorityName\": ").append("\"" + this.authorityName + "\"")
                     .append(", \"parentGroup\": ").append("\"" + this.parentGroup + "\"")
-                    .append(", \"cascade\": ").append("\"" + this.cascade + "\"")
+                    .append(", \"cascade\": ").append(this.cascade)
                     .append("}}");
         return sb.toString();
     }
