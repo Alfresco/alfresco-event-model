@@ -5,9 +5,8 @@
   "principal": "testPrincipal",
   "resource": {
     "schema": "org.alfresco.event.model.acs.AuthorityResourceV1",
-    "id": "a1ca3d2e-4690-4462-bbab-a42a998d07da",
+    "id": "testUser",
     "primaryHierarchy": [],
-    "authorityName": "testUser",
     "parentGroup": "Group_testParent"
   }
 }

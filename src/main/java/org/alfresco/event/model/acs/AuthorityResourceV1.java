@@ -31,7 +31,6 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  */
 public class AuthorityResourceV1 extends ResourceV1
 {
-    private String authorityName;
     // Only relevant for Authority Added to/Removed from Group Event
     @JsonInclude(Include.NON_NULL)
     private String parentGroup;
@@ -44,20 +43,9 @@ public class AuthorityResourceV1 extends ResourceV1
         //NOOP
     }
 
-    public AuthorityResourceV1(String id, List<HierarchyEntry> primaryHierarchy, String authorityName)
+    public AuthorityResourceV1(String id, List<HierarchyEntry> primaryHierarchy)
     {
         super(id, AuthorityResourceV1.class, primaryHierarchy);
-        this.authorityName = authorityName;
-    }
-
-    public String getAuthorityName()
-    {
-        return authorityName;
-    }
-
-    public void setAuthorityName(String authorityName)
-    {
-        this.authorityName = authorityName;
     }
 
     public String getParentGroup()
@@ -83,7 +71,7 @@ public class AuthorityResourceV1 extends ResourceV1
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), authorityName, parentGroup, cascade);
+        return Objects.hash(super.hashCode(), parentGroup, cascade);
     }
 
     @Override
@@ -102,8 +90,7 @@ public class AuthorityResourceV1 extends ResourceV1
             return false;
         }
         AuthorityResourceV1 that = (AuthorityResourceV1) obj;
-        return Objects.equals(authorityName, that.authorityName)
-                    && Objects.equals(parentGroup, that.parentGroup)
+        return Objects.equals(parentGroup, that.parentGroup)
                     && Objects.equals(cascade, that.cascade);
     }
 
@@ -115,7 +102,6 @@ public class AuthorityResourceV1 extends ResourceV1
                     .append("{\"id\": ").append("\"" + this.id + "\"")
                     .append(", \"schema\": ").append("\"" + this.schema + "\"")
                     .append(", \"primaryHierarchy\": ").append((this.primaryHierarchy == null ? "null" : "\"" + this.primaryHierarchy.toString() + "\""))
-                    .append(", \"authorityName\": ").append("\"" + this.authorityName + "\"")
                     .append(", \"parentGroup\": ").append("\"" + this.parentGroup + "\"")
                     .append(", \"cascade\": ").append(this.cascade)
                     .append("}}");

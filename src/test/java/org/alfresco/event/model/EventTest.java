@@ -263,8 +263,7 @@ public class EventTest
     @Test
     public void testAuthorityAddedEventMarshallingUnmarshalling() throws Exception
     {
-        AuthorityResourceV1 resource = new AuthorityResourceV1("a1ca3d2e-4690-4462-bbab-a42a998d07da",
-                    Collections.emptyList(), "testUser");
+        AuthorityResourceV1 resource = new AuthorityResourceV1("testUser", Collections.emptyList());
         resource.setParentGroup("Group_testParent");
         EventV1<AuthorityResourceV1> authEvent = new EventV1<>("AUTHADDEDTOGROUP",
                     "1520534888663-k8T3", "testPrincipal", resource);
@@ -284,8 +283,7 @@ public class EventTest
     @Test
     public void testAuthorityDeletedEventMarshallingUnmarshalling() throws Exception
     {
-        AuthorityResourceV1 resource = new AuthorityResourceV1("a1ca3d2e-4690-4462-bbab-a42a998d07da",
-                    Collections.emptyList(), "Group_testGroup");
+        AuthorityResourceV1 resource = new AuthorityResourceV1("Group_testGroup", Collections.emptyList());
         resource.setCascade(Boolean.TRUE);
         EventV1<AuthorityResourceV1> authEvent = new EventV1<>("GROUPDELETED",
                     "1520534888663-k8T3", "testPrincipal", resource);
